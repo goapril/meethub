@@ -98,6 +98,12 @@
               "LogGroupName": "/aws/lambda/auth-server-dev-getAuthURL"
             }
           },
+          "GetAccessTokenLogGroup": {
+            "Type": "AWS::Logs::LogGroup",
+            "Properties": {
+              "LogGroupName": "/aws/lambda/auth-server-dev-getAccessToken"
+            }
+          },
           "IamRoleLambdaExecution": {
             "Type": "AWS::IAM::Role",
             "Properties": {
@@ -182,7 +188,7 @@
                 "S3Bucket": {
                   "Ref": "ServerlessDeploymentBucket"
                 },
-                "S3Key": "serverless/auth-server/dev/1622551161528-2021-06-01T12:39:21.528Z/auth-server.zip"
+                "S3Key": "serverless/auth-server/dev/1622554032346-2021-06-01T13:27:12.346Z/auth-server.zip"
               },
               "Handler": "handler.getAuthURL",
               "Runtime": "nodejs12.x",
@@ -208,14 +214,57 @@
               "GetAuthURLLogGroup"
             ]
           },
-          "GetAuthURLLambdaVersionr2kDXO1D2d8P4Co9lZkU2r8gcAyXG0ieQZ0b6IY4gU": {
+          "GetAccessTokenLambdaFunction": {
+            "Type": "AWS::Lambda::Function",
+            "Properties": {
+              "Code": {
+                "S3Bucket": {
+                  "Ref": "ServerlessDeploymentBucket"
+                },
+                "S3Key": "serverless/auth-server/dev/1622554032346-2021-06-01T13:27:12.346Z/auth-server.zip"
+              },
+              "Handler": "handler.getAccessToken",
+              "Runtime": "nodejs12.x",
+              "FunctionName": "auth-server-dev-getAccessToken",
+              "MemorySize": 1024,
+              "Timeout": 60,
+              "Environment": {
+                "Variables": {
+                  "CLIENT_ID": "613128267659-vr6f8cr99v5dfhv33phfirhrs5foldjb.apps.googleusercontent.com",
+                  "CLIENT_SECRET": "eudkhbBTUFa-HuYbSQWUpE0N",
+                  "PROJECT_ID": "meethub-315511",
+                  "CALENDAR_ID": "fullstackwebdev@careerfoundry.com"
+                }
+              },
+              "Role": {
+                "Fn::GetAtt": [
+                  "IamRoleLambdaExecution",
+                  "Arn"
+                ]
+              }
+            },
+            "DependsOn": [
+              "GetAccessTokenLogGroup"
+            ]
+          },
+          "GetAuthURLLambdaVersionRnipifGj85VuNNL1TP6HY60JiUnf5RjqSpwgBI0OE": {
             "Type": "AWS::Lambda::Version",
             "DeletionPolicy": "Retain",
             "Properties": {
               "FunctionName": {
                 "Ref": "GetAuthURLLambdaFunction"
               },
-              "CodeSha256": "voAiDyuvhcee0X3+EU4QACB9fZsnqGfuPvtpUc74LJY="
+              "CodeSha256": "yFK/fYmVXeTvKonaHcM/g+nhAK0WW8RqlAfZ8GF5S/8="
+            }
+          },
+          "GetAccessTokenLambdaVersion1zLaIgjg6ukWPmosdvgeiJdoZaRCatDUFsSOZ5pAcQ": {
+            "Type": "AWS::Lambda::Version",
+            "DeletionPolicy": "Retain",
+            "Properties": {
+              "FunctionName": {
+                "Ref": "GetAccessTokenLambdaFunction"
+              },
+              "CodeSha256": "yFK/fYmVXeTvKonaHcM/g+nhAK0WW8RqlAfZ8GF5S/8="
             }
           },
           "ApiGatewayRestApi": {
@@ -252,6 +301,30 @@
                 "Ref": "ApiGatewayResourceApi"
               },
               "PathPart": "get-auth-url",
+              "RestApiId": {
+                "Ref": "ApiGatewayRestApi"
+              }
+            }
+          },
+          "ApiGatewayResourceApiToken": {
+            "Type": "AWS::ApiGateway::Resource",
+            "Properties": {
+              "ParentId": {
+                "Ref": "ApiGatewayResourceApi"
+              },
+              "PathPart": "token",
+              "RestApiId": {
+                "Ref": "ApiGatewayRestApi"
+              }
+            }
+          },
+          "ApiGatewayResourceApiTokenCodeVar": {
+            "Type": "AWS::ApiGateway::Resource",
+            "Properties": {
+              "ParentId": {
+                "Ref": "ApiGatewayResourceApiToken"
+              },
+              "PathPart": "{code}",
               "RestApiId": {
                 "Ref": "ApiGatewayRestApi"
               }
@@ -300,7 +373,50 @@
               "MethodResponses": []
             }
           },
-          "ApiGatewayDeployment1622551157603": {
+          "ApiGatewayMethodApiTokenCodeVarGet": {
+            "Type": "AWS::ApiGateway::Method",
+            "Properties": {
+              "HttpMethod": "GET",
+              "RequestParameters": {},
+              "ResourceId": {
+                "Ref": "ApiGatewayResourceApiTokenCodeVar"
+              },
+              "RestApiId": {
+                "Ref": "ApiGatewayRestApi"
+              },
+              "ApiKeyRequired": false,
+              "AuthorizationType": "NONE",
+              "Integration": {
+                "IntegrationHttpMethod": "POST",
+                "Type": "AWS_PROXY",
+                "Uri": {
+                  "Fn::Join": [
+                    "",
+                    [
+                      "arn:",
+                      {
+                        "Ref": "AWS::Partition"
+                      },
+                      ":apigateway:",
+                      {
+                        "Ref": "AWS::Region"
+                      },
+                      ":lambda:path/2015-03-31/functions/",
+                      {
+                        "Fn::GetAtt": [
+                          "GetAccessTokenLambdaFunction",
+                          "Arn"
+                        ]
+                      },
+                      "/invocations"
+                    ]
+                  ]
+                }
+              },
+              "MethodResponses": []
+            }
+          },
+          "ApiGatewayDeployment1622554028454": {
             "Type": "AWS::ApiGateway::Deployment",
             "Properties": {
               "RestApiId": {
@@ -309,7 +425,8 @@
               "StageName": "dev"
             },
             "DependsOn": [
-              "ApiGatewayMethodApiGetDashauthDashurlGet"
+              "ApiGatewayMethodApiGetDashauthDashurlGet",
+              "ApiGatewayMethodApiTokenCodeVarGet"
             ]
           },
           "GetAuthURLLambdaPermissionApiGateway": {
@@ -318,6 +435,43 @@
               "FunctionName": {
                 "Fn::GetAtt": [
                   "GetAuthURLLambdaFunction",
+                  "Arn"
+                ]
+              },
+              "Action": "lambda:InvokeFunction",
+              "Principal": "apigateway.amazonaws.com",
+              "SourceArn": {
+                "Fn::Join": [
+                  "",
+                  [
+                    "arn:",
+                    {
+                      "Ref": "AWS::Partition"
+                    },
+                    ":execute-api:",
+                    {
+                      "Ref": "AWS::Region"
+                    },
+                    ":",
+                    {
+                      "Ref": "AWS::AccountId"
+                    },
+                    ":",
+                    {
+                      "Ref": "ApiGatewayRestApi"
+                    },
+                    "/*/*"
+                  ]
+                ]
+              }
+            }
+          },
+          "GetAccessTokenLambdaPermissionApiGateway": {
+            "Type": "AWS::Lambda::Permission",
+            "Properties": {
+              "FunctionName": {
+                "Fn::GetAtt": [
+                  "GetAccessTokenLambdaFunction",
                   "Arn"
                 ]
               },
@@ -362,10 +516,19 @@
           "GetAuthURLLambdaFunctionQualifiedArn": {
             "Description": "Current Lambda function version",
             "Value": {
-              "Ref": "GetAuthURLLambdaVersionr2kDXO1D2d8P4Co9lZkU2r8gcAyXG0ieQZ0b6IY4gU"
+              "Ref": "GetAuthURLLambdaVersionRnipifGj85VuNNL1TP6HY60JiUnf5RjqSpwgBI0OE"
             },
             "Export": {
               "Name": "sls-auth-server-dev-GetAuthURLLambdaFunctionQualifiedArn"
+            }
+          },
+          "GetAccessTokenLambdaFunctionQualifiedArn": {
+            "Description": "Current Lambda function version",
+            "Value": {
+              "Ref": "GetAccessTokenLambdaVersion1zLaIgjg6ukWPmosdvgeiJdoZaRCatDUFsSOZ5pAcQ"
+            },
+            "Export": {
+              "Name": "sls-auth-server-dev-GetAccessTokenLambdaFunctionQualifiedArn"
             }
           },
           "ServiceEndpoint": {
@@ -499,7 +662,26 @@
         "timeout": 60,
         "runtime": "nodejs12.x",
         "vpc": {},
-        "versionLogicalId": "GetAuthURLLambdaVersionr2kDXO1D2d8P4Co9lZkU2r8gcAyXG0ieQZ0b6IY4gU"
+        "versionLogicalId": "GetAuthURLLambdaVersionRnipifGj85VuNNL1TP6HY60JiUnf5RjqSpwgBI0OE"
+      },
+      "getAccessToken": {
+        "handler": "handler.getAccessToken",
+        "events": [
+          {
+            "http": {
+              "path": "api/token/{code}",
+              "method": "get",
+              "integration": "AWS_PROXY"
+            }
+          }
+        ],
+        "name": "auth-server-dev-getAccessToken",
+        "package": {},
+        "memory": 1024,
+        "timeout": 60,
+        "runtime": "nodejs12.x",
+        "vpc": {},
+        "versionLogicalId": "GetAccessTokenLambdaVersion1zLaIgjg6ukWPmosdvgeiJdoZaRCatDUFsSOZ5pAcQ"
       }
     },
     "configValidationMode": "warn",
@@ -521,7 +703,7 @@
     "artifact": "/Users/aprilgo/meethub/auth-server/.serverless/auth-server.zip"
   },
   "package": {
-    "artifactDirectoryName": "serverless/auth-server/dev/1622551161528-2021-06-01T12:39:21.528Z",
+    "artifactDirectoryName": "serverless/auth-server/dev/1622554032346-2021-06-01T13:27:12.346Z",
     "artifact": "auth-server.zip"
   }
 }
