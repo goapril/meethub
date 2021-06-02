@@ -1,10 +1,17 @@
 import React, { Component } from 'react';
+import Event from './Event'; // in src/EventList.js
 
 class EventList extends Component {
   render() {
-    return (
-      <ul className="EventList">
-      </ul>
+    const { events } = this.props;
+  return (
+    <ul className="EventList">
+      {events.map(event =>
+        <li>
+          <Event event={event} />
+        </li>
+      )}
+    </ul>
     );
   }
 }
