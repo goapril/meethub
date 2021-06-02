@@ -5,9 +5,10 @@ import { mockData } from '../mock-data';
 import { extractLocations } from '../api';
 
 describe('<CitySearch /> component', () => {
-  let CitySearchWrapper;
+  let locations, CitySearchWrapper;
   beforeAll(() => {
-    CitySearchWrapper = shallow(<CitySearch />);
+    locations = extractLocations(mockData);
+    CitySearchWrapper = shallow(<CitySearch locations={locations} />);
   });
 
   test('render text input', () => {
@@ -22,7 +23,7 @@ describe('<CitySearch /> component', () => {
     const query = CitySearchWrapper.state('query');
     expect(CitySearchWrapper.find('.city').prop('value')).toBe(query);
   });
-  
+
   test('change state when text input changes', () => {
     CitySearchWrapper.setState({
       query: 'Munich'
