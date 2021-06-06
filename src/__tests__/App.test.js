@@ -8,6 +8,7 @@ import { mockData } from '../mock-data';
 import { extractLocations, getEvents } from '../api';
 
 describe('<App /> integration', () => {
+   // EventsList gets events from App
   test('App passes "events" state as a prop to EventList', () => {
     const AppWrapper = mount(<App />);
     const AppEventsState = AppWrapper.state('events');
@@ -15,7 +16,7 @@ describe('<App /> integration', () => {
     expect(AppWrapper.find(EventList).props().events).toEqual(AppEventsState);
     AppWrapper.unmount();
   });
-
+  // CitySearch gets location from App
   test('App passes "locations" state as a prop to CitySearch', () => {
     const AppWrapper = mount(<App />);
     const AppLocationsState = AppWrapper.state('locations');
@@ -23,7 +24,7 @@ describe('<App /> integration', () => {
     expect(AppWrapper.find(CitySearch).props().locations).toEqual(AppLocationsState);
     AppWrapper.unmount();
   });
-
+  // Only events in selected city will show in suggestions
   test('get list of events matching the city selected by the user', async () => {
     const AppWrapper = mount(<App />);
     const CitySearchWrapper = AppWrapper.find(CitySearch);
@@ -38,7 +39,7 @@ describe('<App /> integration', () => {
     expect(AppWrapper.state('events')).toEqual(eventsToShow);
     AppWrapper.unmount();
   });
-
+  // Select "See all cities"
   test('get list of all events when user selects "See all cities"', async () => {
     const AppWrapper = mount(<App />);
     const suggestionItems = AppWrapper.find(CitySearch).find('.suggestions li');
@@ -61,15 +62,15 @@ describe('<App /> component', () => {
   beforeAll(() => {
     AppWrapper = shallow(<App />);
   });
-
+  // show upcoming events
   test('render list of events', () => {
     expect(AppWrapper.find(EventList)).toHaveLength(1);
   });
-
+  //show a list of suggestions during search
   test('render CitySearch', () => {
     expect(AppWrapper.find(CitySearch)).toHaveLength(1);
   });
-
+  // show number of events
   test('render number of events component', () => {
     expect(AppWrapper.find(NumberOfEvents)).toHaveLength(1);
   });
