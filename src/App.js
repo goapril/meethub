@@ -10,7 +10,8 @@ class App extends Component {
   state = {
     events: [],
     locations: [],
-    numberOfEvents: 32
+    numberOfEvents: 32,
+    currentLocation: 'all'
   }
 
   updateEvents = (location) => {
@@ -18,17 +19,28 @@ class App extends Component {
       const locationEvents = (location === 'all') ?
         events :
         events.filter((event) => event.location === location);
+      const { numberOfEvents } = this.state;
       this.setState({
-        events: locationEvents,
+        events: locationEvents.slice(0, numberOfEvents),
+        currentLocation: location
       });
     });
   }
 
+  updateEventCount = (eventCount) => {
+    const { currentLocation } = this.state;
+    this.setState({
+      numberOfEvents: eventCount
+    });
+    this.updateEvents(currentLocation);
+  }
+
   componentDidMount() {
+    const { numberOfEvents } = this.state;
     this.mounted = true;
     getEvents().then((events) => {
       if (this.mounted) {
-        this.setState({ events, locations: extractLocations(events) });
+        this.setState({ events: events.slice(0, numberOfEvents), locations: extractLocations(events) });
       }
     });
   }
@@ -48,13 +60,12 @@ class App extends Component {
   };
 
   render() {
-    const { locations, numberOfEvents } = this.state;
     return (
       <div className='App'>
         <h1>Meethub App</h1>
         <h4>Choose a city</h4>
-        <CitySearch locations={locations} updateEvents={this.updateEvents} />
-        <NumberOfEvents updateEvents={this.updateEvents} numberOfEvents={numberOfEvents} />
+        <CitySearch locations={this.state.locations} updateEvents={this.updateEvents} />
+        <NumberOfEvents updateEventCount={this.updateEventCount} numberOfEvents={this.state.numberOfEvents} />
         <EventList events={this.state.events} />
       </div>
     );
