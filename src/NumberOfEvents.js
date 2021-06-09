@@ -7,9 +7,9 @@ class NumberOfEvents extends Component {
 
   handleInputChange = event => {
     const value = event.target.value;
-    console.log(value, typeof value);
+    //console.log(value, typeof value);
     const valueInteger = parseInt(value);
-    console.log(valueInteger, typeof valueInteger);
+    //console.log(valueInteger, typeof valueInteger);
 
     if (valueInteger <= 0) {
       this.setState({
