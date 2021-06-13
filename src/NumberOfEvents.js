@@ -4,21 +4,17 @@ import { ErrorAlert } from './Alert';
 class NumberOfEvents extends Component {
   state = {
     numberEvents: 32,
-    errorText: ''
   };
 
   handleInputChange = event => {
     const value = event.target.value;
-    //console.log(value, typeof value);
-    const valueInteger = parseInt(value);
-    //console.log(valueInteger, typeof valueInteger);
 
-    if (valueInteger <= 0) {
+    if (value <= 0) {
       this.setState({
         numberEvents: value,
         errorText: 'Select number from 1 to 32'
       })
-    } else if (isNaN(valueInteger)) {
+    } else if (value > 32) {
       this.setState({
         numberEvents: value,
         errorText: 'Select number from 1 to 32'
