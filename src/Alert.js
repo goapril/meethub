@@ -31,7 +31,7 @@ class InfoAlert extends Alert {
       return {
           color: this.color,
           fontWeight: 'bold',
-          fontSize: '0.7rem'
+          fontSize: '1rem'
       };
   }
 }
@@ -46,7 +46,7 @@ class ErrorAlert extends Alert {
       return {
           color: this.color,
           fontWeight: 'bold',
-          fontSize: '0.7rem'
+          fontSize: '1rem'
       };
   }
 }
