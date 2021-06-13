@@ -28,7 +28,7 @@ module.exports.getAuthURL = async () => {
   return {
     statusCode: 200,
     headers: {
-      "Access-Control-Allow-Origin": "*",
+      "Access-Control-Allow-Origin":[`https://goapril.github.io/meethub/`, `https://goapril.github.io/meethub`]
     },
     body: JSON.stringify({
       authUrl: authUrl,
@@ -105,7 +105,7 @@ module.exports.getCalendarEvents = async (event) => {
       return {
         statusCode: 500,
         headers: {
-          "Access-Control-Allow-Origin": "*",
+          "Access-Control-Allow-Origin":[`https://goapril.github.io/meethub/`, `https://goapril.github.io/meethub`]
         },
         body: JSON.stringify(err),
       };
