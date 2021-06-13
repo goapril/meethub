@@ -6,24 +6,25 @@ class CitySearch extends Component {
     query: '',
     suggestions: [],
     showSuggestions: false,
+    infoText:''
   };
 
   handleInputChanged = (event) => {
     const value = event.target.value;
+    this.setState({showSuggestions:true});
     const suggestions = this.props.locations.filter((location) => {
       return location.toUpperCase().indexOf(value.toUpperCase()) > -1;
     });
     if (suggestions.length === 0) {
       this.setState({
         query: value,
-        suggestions: [],
         infoText: 'We can not find the city you are looking for. Please try another city',
       });
     } else {
-      this.setState({
-          query: value,
-          suggestions,
-          infoText: ''
+      return this.setState({
+        query: value,
+        suggestions,
+        infoText: ''
       });
     };
   }
