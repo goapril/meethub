@@ -10,7 +10,7 @@ const credentials = {
   auth_uri: "https://accounts.google.com/o/oauth2/auth",
   token_uri: "https://oauth2.googleapis.com/token",
   auth_provider_x509_cert_url: "https://www.googleapis.com/oauth2/v1/certs",
-  redirect_uris: ["https://goapril.github.io/meethub"],
+  redirect_uris: ["https://goapril.github.io/meethub/", "https://goapril.github.io/meethub"],
   javascript_origins: ["https://goapril.github.io", "http://localhost:3000"],
 };
 const { client_secret, client_id, redirect_uris, calendar_id } = credentials;
@@ -28,7 +28,7 @@ module.exports.getAuthURL = async () => {
   return {
     statusCode: 200,
     headers: {
-      "Access-Control-Allow-Origin":[`https://goapril.github.io/meethub/`, `https://goapril.github.io/meethub`]
+      "Access-Control-Allow-Origin":["https://goapril.github.io/meethub/", "https://goapril.github.io/meethub"]
     },
     body: JSON.stringify({
       authUrl: authUrl,
@@ -105,7 +105,7 @@ module.exports.getCalendarEvents = async (event) => {
       return {
         statusCode: 500,
         headers: {
-          "Access-Control-Allow-Origin":[`https://goapril.github.io/meethub/`, `https://goapril.github.io/meethub`]
+          "Access-Control-Allow-Origin":["https://goapril.github.io/meethub/", "https://goapril.github.io/meethub"]
         },
         body: JSON.stringify(err),
       };
