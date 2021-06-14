@@ -1,24 +1,24 @@
 {
   "files": {
     "main.css": "/meethub/static/css/main.08056a73.chunk.css",
-    "main.js": "/meethub/static/js/main.ab2ce1ca.chunk.js",
-    "main.js.map": "/meethub/static/js/main.ab2ce1ca.chunk.js.map",
+    "main.js": "/meethub/static/js/main.291f689d.chunk.js",
+    "main.js.map": "/meethub/static/js/main.291f689d.chunk.js.map",
     "runtime-main.js": "/meethub/static/js/runtime-main.92eb942b.js",
     "runtime-main.js.map": "/meethub/static/js/runtime-main.92eb942b.js.map",
-    "static/js/2.acb95359.chunk.js": "/meethub/static/js/2.acb95359.chunk.js",
-    "static/js/2.acb95359.chunk.js.map": "/meethub/static/js/2.acb95359.chunk.js.map",
+    "static/js/2.a8b38175.chunk.js": "/meethub/static/js/2.a8b38175.chunk.js",
+    "static/js/2.a8b38175.chunk.js.map": "/meethub/static/js/2.a8b38175.chunk.js.map",
     "static/js/3.5ba852a8.chunk.js": "/meethub/static/js/3.5ba852a8.chunk.js",
     "static/js/3.5ba852a8.chunk.js.map": "/meethub/static/js/3.5ba852a8.chunk.js.map",
     "index.html": "/meethub/index.html",
     "service-worker.js": "/meethub/service-worker.js",
     "service-worker.js.map": "/meethub/service-worker.js.map",
     "static/css/main.08056a73.chunk.css.map": "/meethub/static/css/main.08056a73.chunk.css.map",
-    "static/js/2.acb95359.chunk.js.LICENSE.txt": "/meethub/static/js/2.acb95359.chunk.js.LICENSE.txt"
+    "static/js/2.a8b38175.chunk.js.LICENSE.txt": "/meethub/static/js/2.a8b38175.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
     "static/js/runtime-main.92eb942b.js",
-    "static/js/2.acb95359.chunk.js",
+    "static/js/2.a8b38175.chunk.js",
     "static/css/main.08056a73.chunk.css",
-    "static/js/main.ab2ce1ca.chunk.js"
+    "static/js/main.291f689d.chunk.js"
   ]
 }
