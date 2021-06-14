@@ -49,7 +49,7 @@ class CitySearch extends Component {
         value={this.state.query}
         onChange={this.handleInputChanged}
         onFocus={() => { this.setState({ showSuggestions: true }) }}
-        onBlur={() => { this.setState({ showSuggestions: false }) }}
+        onBlur={() => { window.setTimeout(() => { this.setState({ showSuggestions: false }) }, 500)}}
         />
         <ul className="suggestions" style={this.state.showSuggestions ? {}: { display: 'none' }}>
           {this.state.suggestions.map((suggestion) => (
