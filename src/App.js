@@ -12,7 +12,8 @@ class App extends Component {
     events: [],
     locations: [],
     numberOfEvents: 32,
-    currentLocation: 'all'
+    currentLocation: 'all',
+    offlineText: ''
   }
 
   updateEvents = (location) => {
@@ -45,12 +46,12 @@ class App extends Component {
       }
       if (!navigator.onLine) {
         this.setState({
-          warningText: 'You are currently offline, events may not be updated.'
+          offlineText: 'You are currently offline, events may not be updated.'
         })
       }
       else {
         this.setState({
-          warningText: ''
+          offlineText: ''
         })
       }
     });
@@ -73,7 +74,7 @@ class App extends Component {
   render() {
     return (
       <div className='App'>
-        <OfflineAlert text={this.state.warningText} />
+        <OfflineAlert text={this.state.offlineText} />
         <h1>Meethub App</h1>
         <h4>Choose a city</h4>
         <CitySearch locations={this.state.locations} updateEvents={this.updateEvents} />
