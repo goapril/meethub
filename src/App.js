@@ -42,14 +42,17 @@ class App extends Component {
     this.mounted = true;
     getEvents().then((events) => {
       if (this.mounted) {
-        this.setState({ events: events.slice(0, numberOfEvents), locations: extractLocations(events) });
-      }
+        this.setState({
+          events: events.slice(0, numberOfEvents),
+          locations: extractLocations(events)
+        });
+      };
+      
       if (!navigator.onLine) {
         this.setState({
           offlineText: 'You are currently offline, events may not be updated.'
         })
-      }
-      else {
+      } else {
         this.setState({
           offlineText: ''
         })
