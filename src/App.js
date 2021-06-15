@@ -45,7 +45,7 @@ class App extends Component {
       }
       if (!navigator.onLine) {
         this.setState({
-          offlineAlert: 'Cached data is being displayed.'
+          warningText: 'You are currently offline, events may not be updated.'
         })
       }
       else {
@@ -73,7 +73,7 @@ class App extends Component {
   render() {
     return (
       <div className='App'>
-        <OfflineAlert text={this.state.offlineAlert} />
+        <OfflineAlert text={this.state.warningText} />
         <h1>Meethub App</h1>
         <h4>Choose a city</h4>
         <CitySearch locations={this.state.locations} updateEvents={this.updateEvents} />
