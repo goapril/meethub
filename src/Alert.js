@@ -63,6 +63,14 @@ class OfflineAlert extends Alert {
       super(props);
       this.color = 'Orange';
   }
+
+  getStyle = () => {
+    return {
+        color: this.color,
+        fontWeight: 'bold',
+        fontSize: '1rem'
+    };
+}
 }
 
 export {InfoAlert, ErrorAlert, WarningAlert, OfflineAlert};
