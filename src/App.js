@@ -5,6 +5,7 @@ import NumberOfEvents from './NumberOfEvents';
 import EventList from './EventList';
 import { getEvents, extractLocations } from './api';
 import "./nprogress.css";
+import { OfflineAlert } from './Alert';
 
 class App extends Component {
   state = {
@@ -42,6 +43,16 @@ class App extends Component {
       if (this.mounted) {
         this.setState({ events: events.slice(0, numberOfEvents), locations: extractLocations(events) });
       }
+      if (!navigator.onLine) {
+        this.setState({
+          offlineAlert: 'Cached data is being displayed.'
+        })
+      }
+      else {
+        this.setState({
+          warningText: ''
+        })
+      }
     });
   }
 
@@ -62,6 +73,7 @@ class App extends Component {
   render() {
     return (
       <div className='App'>
+        <OfflineAlert text={this.state.offlineAlert} />
         <h1>Meethub App</h1>
         <h4>Choose a city</h4>
         <CitySearch locations={this.state.locations} updateEvents={this.updateEvents} />
