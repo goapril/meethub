@@ -1,8 +1,8 @@
 {
   "files": {
     "main.css": "/meethub/static/css/main.08056a73.chunk.css",
-    "main.js": "/meethub/static/js/main.0f665d16.chunk.js",
-    "main.js.map": "/meethub/static/js/main.0f665d16.chunk.js.map",
+    "main.js": "/meethub/static/js/main.e6d5e733.chunk.js",
+    "main.js.map": "/meethub/static/js/main.e6d5e733.chunk.js.map",
     "runtime-main.js": "/meethub/static/js/runtime-main.92eb942b.js",
     "runtime-main.js.map": "/meethub/static/js/runtime-main.92eb942b.js.map",
     "static/js/2.a8b38175.chunk.js": "/meethub/static/js/2.a8b38175.chunk.js",
@@ -19,6 +19,6 @@
     "static/js/runtime-main.92eb942b.js",
     "static/js/2.a8b38175.chunk.js",
     "static/css/main.08056a73.chunk.css",
-    "static/js/main.0f665d16.chunk.js"
+    "static/js/main.e6d5e733.chunk.js"
   ]
 }
