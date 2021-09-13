@@ -1,9 +1,8 @@
 # Project Name:
-Achievement 4 Project Brief: Mett App
-(Work-in-progress)
+Meethub
 
 # Project Link:
-To be advised...
+https://goapril.github.io/meethub/
 
 # Project Objective:
 To build a serverless, progressive web application (PWA) with React using a test-driven development (TDD) technique. The application uses the Google Calendar API to fetch
@@ -120,3 +119,8 @@ Scenario 1: Show a chart with the number of upcoming events in each city.
 Given user searched for a city
 When the user clicks the chart
 Then the user should see the number of upcoming events in that searched city
+
+# How to run:
+Run the following command to run this project locally and then navigate to the localhost port stated in your terminal.
+
+npm start
